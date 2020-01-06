@@ -17,7 +17,7 @@ fprintf(stderr, "Error: malloc failed\n");
 exit(EXIT_FAILURE);
 }
 
-if (opCodeVal == NULL && !isDigit())
+if (!isDigit())
 {
 fprintf(stderr, "L%u: usage: push integer\n", line_number);
 free(newNode);
