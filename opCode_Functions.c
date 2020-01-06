@@ -2,7 +2,7 @@
 
 /**
  * opCode_Functions - function add nodes in Stack
- * @stack: the opcode
+ * @top: the opcode
  * @line_number: function to handle the opcode
  * @instr: Instruction
  */
@@ -32,13 +32,18 @@ exit(EXIT_FAILURE);
 }
 }
 
-int isDigit()
+/**
+ * isDigit - Valid Digits
+ * return: Flag
+ */
+
+int isDigit(void)
 {
 int flag = 0;
 
 if (opCodeVal == NULL)
 {
-    return (flag);
+return (flag);
 }
 for (int i = 0; opCodeVal[i]; i++)
 {
