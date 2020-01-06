@@ -13,7 +13,9 @@ int idx;
 instruction_t opFunc[] = {
 {"push", _push},
 {"pall", _pall},
-{NULL, NULL}};
+{"pint", _pint},
+{NULL, NULL}
+};
 
 for (idx = 0; opFunc[idx].opcode; idx++)
 {
