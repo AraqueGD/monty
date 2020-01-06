@@ -15,6 +15,8 @@ instruction_t opFunc[] = {
 {"push", _push},
 {"pall", _pall},
 {"pint", _pint},
+{"pop", _pop},
+{NULL, NULL}
 };
 int rows = (sizeof(opFunc) / sizeof(opFunc[0])) - 1;
 for (idx = 0; idx <= rows; idx++)
