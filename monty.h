@@ -43,11 +43,10 @@ void (*f)(stack_t **stack, unsigned int line_number);
 
 extern char *opCodeVal;
 
-stack_t *initStack(FILE *fd);
 void _push(stack_t **stack, unsigned int line_number);
 void _pall(stack_t **stack, unsigned int line_number);
 void _pint(stack_t **stack, unsigned int line_number);
-void opCode_Functions(stack_t **stack, char *, ssize_t);
-_Bool isDigit(void);
+void opCode_Functions(stack_t **top, char *, unsigned int line_number);
+int isDigit();
 
 #endif /* MONTY_H */
