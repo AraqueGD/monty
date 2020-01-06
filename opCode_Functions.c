@@ -10,13 +10,14 @@
 void opCode_Functions(stack_t **top, char *instr, unsigned int line_number)
 {
 int flag = 1;
+int idx;
 instruction_t opFunc[] = {
 {"push", _push},
 {"pall", _pall},
 {"pint", _pint},
 };
 int rows = (sizeof(opFunc) / sizeof(opFunc[0])) - 1;
-for (int idx = 0; idx <= rows; idx++)
+for (idx = 0; idx <= rows; idx++)
 {
 if (strcmp(opFunc[idx].opcode, instr) == 0)
 {
@@ -40,12 +41,13 @@ exit(EXIT_FAILURE);
 int isDigit(void)
 {
 int flag = 0;
+int i;
 
 if (opCodeVal == NULL)
 {
 return (flag);
 }
-for (int i = 0; opCodeVal[i]; i++)
+for (i = 0; opCodeVal[i]; i++)
 {
 if (opCodeVal[i] >= 48 && opCodeVal[i] <= 57)
 flag = 1;
