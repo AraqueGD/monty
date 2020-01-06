@@ -18,9 +18,9 @@
  */
 typedef struct stack_s
 {
-  int n;
-  struct stack_s *prev;
-  struct stack_s *next;
+int n;
+struct stack_s *prev;
+struct stack_s *next;
 } stack_t;
 
 /**
@@ -33,19 +33,16 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-  char *opcode;
-  void (*f)(stack_t **stack, unsigned int line_number);
+char *opcode;
+void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
 extern char *opCodeVal;
 
-/**
- *  Prototypes
-*/
 stack_t *initStack(FILE *fd);
 void _push(stack_t **stack, unsigned int line_number);
 void _pall(stack_t **stack, unsigned int line_number);
 void opCode_Functions(stack_t **stack, char *, ssize_t);
-_Bool isDigit();
+_Bool isDigit(void);
 
-#endif // MONTY_H
+#endif /* MONTY_H */
