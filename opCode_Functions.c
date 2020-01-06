@@ -7,44 +7,48 @@
  * @instr: Instruction
  */
 
-void opCode_Functions(stack_t **stack, char *instr, ssize_t line_number)
+void opCode_Functions(stack_t **top, char *instr, unsigned int line_number)
 {
-int idx;
+int flag = 1;
 instruction_t opFunc[] = {
 {"push", _push},
 {"pall", _pall},
 {"pint", _pint},
-{NULL, NULL}
 };
-
-for (idx = 0; opFunc[idx].opcode; idx++)
+int rows = (sizeof(opFunc) / sizeof(opFunc[0])) - 1;
+for (int idx = 0; idx <= rows; idx++)
 {
 if (strcmp(opFunc[idx].opcode, instr) == 0)
 {
-opFunc[idx].f(stack, line_number);
-return;
+opFunc[idx].f(top, line_number);
+flag = 0;
+break;
 }
 }
-
-if (opFunc[idx].opcode == NULL)
+if (flag == 1)
 {
-fprintf(stderr, "L%lu: unknown instruction %s\n", line_number, instr);
+fprintf(stderr, "L%u: unknown instruction %s\n", line_number, instr);
 exit(EXIT_FAILURE);
 }
 }
 
-_Bool isDigit(void)
+int isDigit()
 {
-_Bool isDigit = 1;
-for (int i = 0; *opCodeVal; i++)
+int flag = 0;
+
+if (opCodeVal == NULL)
 {
-if (opCodeVal[1] >= 48 && opCodeVal[i] <= 57)
-continue;
+    return (flag);
+}
+for (int i = 0; opCodeVal[i]; i++)
+{
+if (opCodeVal[i] >= 48 && opCodeVal[i] <= 57)
+flag = 1;
 else
 {
-isDigit = 0;
+flag = 0;
 break;
 }
 }
-return (isDigit);
+return (flag);
 }
