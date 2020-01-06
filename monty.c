@@ -9,7 +9,7 @@
  * Return: (EXIT_SUCCESS) on success (EXIT_FAILURE) on error
  */
 
-char *opCodeVal;
+char *opCodeVal = NULL;
 
 int main(int argc, char **argv)
 {
