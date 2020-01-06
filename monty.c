@@ -44,6 +44,5 @@ opCodeVal = strtok(NULL, DELIMITERS);
 opCode_Functions(&Stack, opCode, line_number);
 }
 fclose(file_fd);
-free(Stack);
 return (code_return);
 }
