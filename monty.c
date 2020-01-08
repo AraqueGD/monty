@@ -1,48 +1,35 @@
-#include "monty.h"
-
 /**
  * main - the entry point for Monty Interpreter
  *
  * @argc: the count of arguments passed to the program
  * @argv: pointer to an array of char pointers to arguments
  *
- * Return: (EXIT_SUCCESS) on success (EXIT_FAILURE) on error
+ * Return: (EXIT_SUCCESS) or (EXIT_FAILURE)
  */
-
-char *opCodeVal = NULL;
+#include "monty.h"
 
 int main(int argc, char **argv)
 {
-	FILE *file_fd = NULL;
-	stack_t *Stack = NULL;
-	int code_return = 0;
-	char *line = NULL;
-	size_t len = 0;
-	ssize_t nread;
-	unsigned int line_number = 0;
-	char *opCode = NULL;
+	/**
+	 * Declaration main local variables
+	 *
+	 * return_code - exit code
+	 * fileptr     - Pointer to input monty file
+	 */
+
+	int return_code;
+	FILE *fileptr = NULL;
 
 	if (argc < 2 || argc > 2)
-	{
-		fprintf(stderr, "USAGE: monty file\n");
-		return (EXIT_FAILURE);
-	}
+		return (error_usage_file());
 
-	file_fd = fopen(argv[1], "r");
-	if (file_fd == NULL)
-	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		return (EXIT_FAILURE);
-	}
-	while ((nread = getline(&line, &len, file_fd)) != -1)
-	{
-		line_number++;
-		opCode = strtok(line, DELIMITERS);
-		if (opCode == NULL || strncmp(opCode, "#", 1) == 0)
-			continue;
-		opCodeVal = strtok(NULL, DELIMITERS);
-		opCode_Functions(&Stack, opCode, line_number);
-	}
-	fclose(file_fd);
-	return (code_return);
+	fileptr = fopen(argv[1], "r");
+
+	if (fileptr == NULL)
+		return (error_open_file(argv[1]));
+
+	(return_code) = exec_monty(fileptr);
+
+	fclose(fileptr);
+	return (return_code);
 }

@@ -1,14 +1,15 @@
 #ifndef MONTY_H
 #define MONTY_H
 
+/**
+ * headers_files - C standard libraries headers
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
 #include <ctype.h>
+
+/* Define Macros */
 #define DELIMITERS "\n\t\r "
 
 /**
@@ -41,13 +42,37 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-extern char *opCodeVal;
+/**
+ * struct global_variables - data structure for some global variables
+ * @opc_code: hold the intruction(push, pop, pall...)
+ * @val_arg: hold the argument of opc_code
+ */
+typedef struct global_variables
+{
+	char *opc_code;
+	char *val_arg;
+} info_t;
 
+/* Global variable - Declaration and Initialization */
+extern info_t info;
+info_t info;
+
+/* Principal functions of monty interpreter */
 void _push(stack_t **stack, unsigned int line_number);
-void _pall(stack_t **stack, unsigned int line_number);
-void _pint(stack_t **stack, unsigned int line_number);
-void _pop(stack_t **head, unsigned int line_number);
-void opCode_Functions(stack_t **top, char *, unsigned int line_number);
-int isDigit(void);
+
+/* Stack functions */
+int init_stack(stack_t **top);
+void free_stack(stack_t **top);
+
+/* Error Message Functions */
+int error_usage_file(void);
+int error_open_file(char *fileptr);
+int error_malloc(void);
+int error_unknown_instruction(unsigned int line_number);
+
+/* Other functions */
+int exec_monty(FILE *);
+void free_all(char *lineptr);
+void (*get_address_func(unsigned int line_number))(stack_t **, unsigned int);
 
 #endif /* MONTY_H */

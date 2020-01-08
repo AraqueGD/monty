@@ -1,34 +1,26 @@
 #include "monty.h"
 
 /**
- * _push - function add nodes in Stack
- * @stack: the opcode
- * @line_number: function to handle the opcode
+ * _push - Pushes a value to a stack_t linked list.
+ * @top: A pointer to the top node of the stack.
+ * @line_number: The current working line number of the monty file
  */
 
-void _push(stack_t **stack, unsigned int line_number)
+void _push(stack_t **top, unsigned int line_number)
 {
-	stack_t *newNode;
+	stack_t *np = (stack_t *)malloc(sizeof(stack_t));
 
-	newNode = malloc(sizeof(stack_t));
-	if (newNode == NULL)
+	if (np == NULL)
 	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
+		error_malloc();
 	}
 
-	if (!isDigit())
-	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
-		free(newNode);
-		exit(EXIT_FAILURE);
-	}
+	np->n = atoi(info.val_arg);
+	np->next = *top;
+	np->prev = NULL;
 
-	newNode->next = *stack;
-	newNode->prev = NULL;
-	newNode->n = atoi(opCodeVal);
-
-	if (*stack)
-		(*stack)->prev = newNode;
-	*stack = newNode;
+	if (*top)
+		(*top)->prev = np;
+	*top = np;
+	(void)line_number;
 }
