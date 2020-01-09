@@ -3,7 +3,7 @@
 /**
  * _push - Pushes a value to a stack_t linked list.
  * @top: A pointer to the top node of the stack.
- * @line_number: The current working line number of the monty file
+ * @line_number: The current working line number of the monty file.
  */
 
 void _push(stack_t **top, unsigned int line_number)

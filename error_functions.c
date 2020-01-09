@@ -46,7 +46,7 @@ int error_no_integer(unsigned int line_number)
 
 /**
  * error_unknown_instruction - Print error message unknown instruction.
- * @line_number: Working line number from input monty file
+ * @line_number: Working line number from input monty file.
  * Return: (EXIT_FAILURE) always.
  */
 int error_unknown_instruction(unsigned int line_number)

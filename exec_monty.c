@@ -9,7 +9,7 @@
  * func_ptr    - Pointer to the corresponding function
  * line_number - Working Line number from monty file
  *
- * Return: (EXIT_SUCCESS) or (EXIT_FAILURE)
+ * Return: (EXIT_SUCCESS) or (EXIT_FAILURE).
  */
 #include "monty.h"
 
@@ -47,7 +47,11 @@ int exec_monty(FILE *fileptr)
 
 		func_ptr(&Stack, line_number);
 		if (info.error_in_func)
+		{
+			free_all(lineptr);
+			free_stack(&Stack);
 			return (EXIT_FAILURE);
+		}
 	}
 
 	return (EXIT_SUCCESS);

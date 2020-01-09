@@ -2,7 +2,7 @@
 #define MONTY_H
 
 /**
- * headers_files - C standard libraries headers
+ * headers_files - C standard libraries headers.
  */
 #include <stdio.h>
 #include <stdlib.h>

@@ -4,7 +4,7 @@
  * @argc: the count of arguments passed to the program
  * @argv: pointer to an array of char pointers to arguments
  *
- * Return: (EXIT_SUCCESS) or (EXIT_FAILURE)
+ * Return: (EXIT_SUCCESS) or (EXIT_FAILURE).
  */
 #include "monty.h"
 

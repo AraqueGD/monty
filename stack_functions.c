@@ -4,7 +4,7 @@
  *
  * np - Pointer to node
  *
- * Return: 1 if was not errors otherwise 0
+ * Return: 1 if was not errors otherwise 0.
  */
 #include "monty.h"
 
