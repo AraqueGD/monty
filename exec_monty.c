@@ -85,10 +85,10 @@ void (*get_address_func())(stack_t **top, unsigned int)
  */
 bool isnumber(void)
 {
+	char *val_arg = info.val_arg;
+
 	if (info.val_arg == NULL)
 		return (false);
-
-	char *val_arg = info.val_arg;
 
 	while (val_arg != NULL)
 	{
