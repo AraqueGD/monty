@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <ctype.h>
+#include <string.h>
+#include <stdbool.h>
 
 /* Define Macros */
 #define DELIMITERS "\n\t\r "
@@ -46,11 +48,13 @@ typedef struct instruction_s
  * struct global_variables - data structure for some global variables
  * @opc_code: hold the intruction(push, pop, pall...)
  * @val_arg: hold the argument of opc_code
+ * @error_in_func: true if there was an error or otherwise false
  */
 typedef struct global_variables
 {
 	char *opc_code;
 	char *val_arg;
+	bool error_in_func;
 } info_t;
 
 /* Global variable - Declaration and Initialization */
@@ -59,6 +63,7 @@ info_t info;
 
 /* Principal functions of monty interpreter */
 void _push(stack_t **stack, unsigned int line_number);
+void _pall(stack_t **stack, unsigned int line_number);
 
 /* Stack functions */
 int init_stack(stack_t **top);
@@ -68,11 +73,13 @@ void free_stack(stack_t **top);
 int error_usage_file(void);
 int error_open_file(char *fileptr);
 int error_malloc(void);
+int error_no_integer(unsigned int line_number);
 int error_unknown_instruction(unsigned int line_number);
 
 /* Other functions */
+bool isnumber(void);
 int exec_monty(FILE *);
 void free_all(char *lineptr);
-void (*get_address_func(unsigned int line_number))(stack_t **, unsigned int);
+void (*get_address_func())(stack_t **, unsigned int);
 
 #endif /* MONTY_H */

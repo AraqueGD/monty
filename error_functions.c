@@ -33,6 +33,18 @@ int error_malloc(void)
 }
 
 /**
+ * error_no_integer - Prints error message argument no valid.
+ * @line_number: Line number in Monty bytecodes file where error occurred.
+ *
+ * Return: (EXIT_FAILURE) always.
+ */
+int error_no_integer(unsigned int line_number)
+{
+	fprintf(stderr, "L%u: usage: push integer\n", line_number);
+	return (EXIT_FAILURE);
+}
+
+/**
  * error_unknown_instruction - Print error message unknown instruction.
  * @line_number: Working line number from input monty file
  * Return: (EXIT_FAILURE) always.

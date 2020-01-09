@@ -12,7 +12,16 @@ void _push(stack_t **top, unsigned int line_number)
 
 	if (np == NULL)
 	{
+		info.error_in_func = true;
 		error_malloc();
+		return;
+	}
+
+	if (!isnumber())
+	{
+		info.error_in_func = true;
+		error_no_integer(line_number);
+		return;
 	}
 
 	np->n = atoi(info.val_arg);
@@ -22,5 +31,6 @@ void _push(stack_t **top, unsigned int line_number)
 	if (*top)
 		(*top)->prev = np;
 	*top = np;
-	(void)line_number;
+
+	info.error_in_func = false;
 }

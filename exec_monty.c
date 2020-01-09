@@ -12,7 +12,6 @@
  * Return: (EXIT_SUCCESS) or (EXIT_FAILURE)
  */
 #include "monty.h"
-#include <string.h>
 
 int exec_monty(FILE *fileptr)
 {
@@ -38,15 +37,17 @@ int exec_monty(FILE *fileptr)
 
 		info.val_arg = strtok(NULL, DELIMITERS);
 
-		func_ptr = get_address_func(line_number);
+		func_ptr = get_address_func();
 		if (func_ptr == NULL)
 		{
 			free_all(lineptr);
 			free_stack(&Stack);
-			return (EXIT_FAILURE);
+			return (error_unknown_instruction(line_number));
 		}
 
 		func_ptr(&Stack, line_number);
+		if (info.error_in_func)
+			return (EXIT_FAILURE);
 	}
 
 	return (EXIT_SUCCESS);
@@ -54,15 +55,15 @@ int exec_monty(FILE *fileptr)
 
 /**
  * get_address_func - Get address from a function monty interpreter
- * @line_number: Working line number from input monty file
+ *
  * Return: A pointer to function to execute
  */
 
-void (*get_address_func(unsigned int line_number))(stack_t **top, unsigned int)
+void (*get_address_func())(stack_t **top, unsigned int)
 {
 	instruction_t *ins_ptr;
-	instruction_t func[] = {{"pop", _push},
-							{"push", _push},
+	instruction_t func[] = {{"push", _push},
+							{"pall", _pall},
 							{NULL, NULL}};
 
 	ins_ptr = func;
@@ -70,13 +71,38 @@ void (*get_address_func(unsigned int line_number))(stack_t **top, unsigned int)
 	while (ins_ptr->opcode && strcmp(info.opc_code, ins_ptr->opcode))
 		ins_ptr++;
 
-	if (!ins_ptr->f)
-	{
-		error_unknown_instruction(line_number);
-		return (ins_ptr->f);
-	}
-
 	return (ins_ptr->f);
+}
+
+/**
+ * isnumber - Function for determinate if argument is a valid number
+ *
+ * Return: true if argument is a number otherwise false
+ */
+bool isnumber(void)
+{
+	if (info.val_arg == NULL)
+		return (false);
+
+	char *val_arg = info.val_arg;
+
+	while (val_arg != NULL)
+	{
+		if ((val_arg == info.val_arg) && *val_arg == '-')
+		{
+			val_arg++;
+			continue;
+		}
+
+		if (*val_arg == '\0')
+			break;
+
+		if (*val_arg < '0' || *val_arg > '9')
+			return (false);
+
+		val_arg++;
+	}
+	return (true);
 }
 
 /**
@@ -85,7 +111,6 @@ void (*get_address_func(unsigned int line_number))(stack_t **top, unsigned int)
  */
 void free_all(char *lineptr)
 {
-	free(info.val_arg);
-	free(info.opc_code);
 	free(lineptr);
+	free(info.opc_code);
 }
